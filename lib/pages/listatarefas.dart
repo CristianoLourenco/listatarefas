@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class Lista extends StatelessWidget {
   Lista({Key? key}) : super(key: key);
 
-  final TextEditingController emailcontroler = TextEditingController();
+  final TextEditingController textEditor = TextEditingController();
+  List<String> all = [];
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class Lista extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: textEditor,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Adicionar uma tarefa',
@@ -31,7 +33,10 @@ class Lista extends StatelessWidget {
                     width: 10,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      String texto = textEditor.text;
+                      all.add(texto);
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff00d7f3),
                       padding: EdgeInsets.all(14),
@@ -46,16 +51,19 @@ class Lista extends StatelessWidget {
               ListView(
                 shrinkWrap: true,
                 children: [
-                  ListTile(
-                      title: Text('Tarefa 1'),
-                      subtitle: Text('21/02/2022'),
-                      leading: Icon(
-                        Icons.save,
-                        size: 50,
-                      ),
-                      onTap: () {
-                        print('tarefa 1');
-                      }),
+                  for (String texto in all)
+                    ListTile(
+                        title: Text(
+                          texto,
+                        ),
+                        subtitle: Text('21/02/2022'),
+                        leading: Icon(
+                          Icons.save,
+                          size: 50,
+                        ),
+                        onTap: () {
+                          print('tarefa: $texto');
+                        }),
                 ],
               ),
               SizedBox(height: 10),
