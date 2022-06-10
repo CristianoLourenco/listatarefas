@@ -13,23 +13,71 @@ class Lista extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: 16,
           ),
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Adicionar uma tarefa',
-                    hintText: 'ex: Estudar Flutter',
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Adicionar uma tarefa',
+                        hintText: 'ex: Estudar Flutter',
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xff00d7f3),
+                      padding: EdgeInsets.all(14),
+                    ),
+                    child: Icon(
+                      Icons.add,
+                      size: 30,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 10,
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  ListTile(
+                      title: Text('Tarefa 1'),
+                      subtitle: Text('21/02/2022'),
+                      leading: Icon(
+                        Icons.save,
+                        size: 50,
+                      ),
+                      onTap: () {
+                        print('tarefa 1');
+                      }),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('+'),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text('Voce possui 0 Tarefas pendentes'),
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xff00d7f3),
+                      padding: EdgeInsets.all(14),
+                    ),
+                    child: Text(
+                      'Limpar Tudo',
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -38,11 +86,6 @@ class Lista extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
 
 /* @override
   Widget build(BuildContext context) {
