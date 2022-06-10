@@ -23,81 +23,90 @@ class _ListaState extends State<Lista> {
       textEditor.clear();
     }
 
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: textEditor,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Adicionar uma tarefa',
-                        hintText: 'ex: Estudar Flutter',
-                      ),
-                      onSubmitted: submit,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      String texto = textEditor.text;
-                      setState(() {
-                        all.add(texto);
-                      });
-                      textEditor.clear();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xff00d7f3),
-                      padding: EdgeInsets.all(14),
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: 30,
-                    ),
-                  ),
-                ],
-              ),
-              //flexible -----------------------
-              Flexible(
-                child: ListView(
-                  shrinkWrap: true,
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.all(
+              16,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
                   children: [
-                    for (String texto in all) ToDoList(),
+                    Expanded(
+                      child: TextField(
+                        controller: textEditor,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Adicionar uma tarefa',
+                          hintText: 'ex: Estudar Flutter',
+                        ),
+                        onSubmitted: submit,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        String texto = textEditor.text;
+                        setState(() {
+                          all.add(texto);
+                        });
+                        textEditor.clear();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xff00d7f3),
+                        padding: EdgeInsets.all(14),
+                      ),
+                      child: Icon(
+                        Icons.add,
+                        size: 30,
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text('Voce possui 0 Tarefas pendentes'),
+                SizedBox(
+                  height: 10,
+                ), //flexible -----------------------
+                Flexible(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      for (String texto in all)
+                        ToDoList(
+                          title: texto,
+                        ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xff00d7f3),
-                      padding: EdgeInsets.all(14),
+                ),
+                SizedBox(height: 10),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child:
+                          Text('Voce possui ${all.length} Tarefas pendentes'),
                     ),
-                    child: Text(
-                      'Limpar Tudo',
+                    SizedBox(
+                      width: 16,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xff00d7f3),
+                        padding: EdgeInsets.all(14),
+                      ),
+                      child: Text(
+                        'Limpar Tudo',
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
