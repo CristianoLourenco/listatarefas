@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:listatarefas/widgets/toDoList.dart';
 
-class Lista extends StatelessWidget {
+class Lista extends StatefulWidget {
   Lista({Key? key}) : super(key: key);
 
-  final TextEditingController textEditor = TextEditingController();
-  List<String> all = [];
+  @override
+  State<Lista> createState() => _ListaState();
+}
 
+TextEditingController textEditor = TextEditingController();
+List<String> all = [];
+DateTime date = DateTime.now();
+
+class _ListaState extends State<Lista> {
   @override
   Widget build(BuildContext context) {
+    void submit(String te) {
+      String texto = textEditor.text;
+      setState(() {
+        all.add(texto);
+      });
+      textEditor.clear();
+    }
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -27,6 +42,7 @@ class Lista extends StatelessWidget {
                         labelText: 'Adicionar uma tarefa',
                         hintText: 'ex: Estudar Flutter',
                       ),
+                      onSubmitted: submit,
                     ),
                   ),
                   SizedBox(
@@ -35,7 +51,10 @@ class Lista extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       String texto = textEditor.text;
-                      all.add(texto);
+                      setState(() {
+                        all.add(texto);
+                      });
+                      textEditor.clear();
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff00d7f3),
@@ -48,23 +67,14 @@ class Lista extends StatelessWidget {
                   ),
                 ],
               ),
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  for (String texto in all)
-                    ListTile(
-                        title: Text(
-                          texto,
-                        ),
-                        subtitle: Text('21/02/2022'),
-                        leading: Icon(
-                          Icons.save,
-                          size: 50,
-                        ),
-                        onTap: () {
-                          print('tarefa: $texto');
-                        }),
-                ],
+              //flexible -----------------------
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    for (String texto in all) ToDoList(),
+                  ],
+                ),
               ),
               SizedBox(height: 10),
               Row(
@@ -96,6 +106,7 @@ class Lista extends StatelessWidget {
 }
 
 /* @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
