@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:listatarefas/widgets/toDoList.dart';
+import 'package:listatarefas/models/date.dart';
 
 class Lista extends StatefulWidget {
   Lista({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class Lista extends StatefulWidget {
 }
 
 TextEditingController textEditor = TextEditingController();
-List<String> all = [];
+List<Date> all = [];
 DateTime date = DateTime.now();
 
 class _ListaState extends State<Lista> {
@@ -18,7 +19,12 @@ class _ListaState extends State<Lista> {
     void submit(String te) {
       String texto = textEditor.text;
       setState(() {
-        all.add(texto);
+        all.add(
+          Date(
+            title: texto,
+            datetime: DateTime.now(),
+          ),
+        );
       });
       textEditor.clear();
     }
@@ -53,7 +59,12 @@ class _ListaState extends State<Lista> {
                       onPressed: () {
                         String texto = textEditor.text;
                         setState(() {
-                          all.add(texto);
+                          all.add(
+                            Date(
+                              title: texto,
+                              datetime: DateTime.now(),
+                            ),
+                          );
                         });
                         textEditor.clear();
                       },
@@ -75,7 +86,7 @@ class _ListaState extends State<Lista> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      for (String texto in all)
+                      for (Date texto in all)
                         ToDoList(
                           title: texto,
                         ),
